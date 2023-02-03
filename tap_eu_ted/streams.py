@@ -5,7 +5,7 @@ from typing import Any, Dict, Optional, Union, List, Iterable
 
 from singer_sdk import typing as th  # JSON Schema typing helpers
 
-from tap_eu_ted.client import Tenders Electronic DailyStream
+from tap_eu_ted.client import TendersElectronicDailyStream
 
 # TODO: Delete this is if not using json files for schema definition
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
@@ -13,7 +13,7 @@ SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 #       - Copy-paste as many times as needed to create multiple stream types.
 
 
-class UsersStream(Tenders Electronic DailyStream):
+class UsersStream(TendersElectronicDailyStream):
     """Define custom stream."""
     name = "users"
     path = "/users"
@@ -49,7 +49,7 @@ class UsersStream(Tenders Electronic DailyStream):
     ).to_dict()
 
 
-class GroupsStream(Tenders Electronic DailyStream):
+class GroupsStream(TendersElectronicDailyStream):
     """Define custom stream."""
     name = "groups"
     path = "/groups"

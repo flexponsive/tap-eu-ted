@@ -4,7 +4,7 @@ import datetime
 
 from singer_sdk.testing import get_tap_test_class
 
-from tap_eu_ted.tap import TapTenders Electronic Daily
+from tap_eu_ted.tap import TapTendersElectronicDaily
 
 
 SAMPLE_CONFIG = {
@@ -14,8 +14,8 @@ SAMPLE_CONFIG = {
 
 
 # Run standard built-in tap tests from the SDK:
-TestTapTenders Electronic Daily = get_tap_test_class(
-    tap_class=TapTenders Electronic Daily,
+TestTapTendersElectronicDaily = get_tap_test_class(
+    tap_class=TapTendersElectronicDaily,
     config=SAMPLE_CONFIG
 )
 

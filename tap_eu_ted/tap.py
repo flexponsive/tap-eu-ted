@@ -1,4 +1,4 @@
-"""Tenders Electronic Daily tap class."""
+"""TendersElectronicDaily tap class."""
 
 from typing import List
 
@@ -6,7 +6,7 @@ from singer_sdk import Tap, Stream
 from singer_sdk import typing as th  # JSON schema typing helpers
 # TODO: Import your custom stream types here:
 from tap_eu_ted.streams import (
-    Tenders Electronic DailyStream,
+    TendersElectronicDailyStream,
     UsersStream,
     GroupsStream,
 )
@@ -18,8 +18,8 @@ STREAM_TYPES = [
 ]
 
 
-class TapTenders Electronic Daily(Tap):
-    """Tenders Electronic Daily tap class."""
+class TapTendersElectronicDaily(Tap):
+    """TendersElectronicDaily tap class."""
     name = "tap-eu-ted"
 
     # TODO: Update this section with the actual config values you expect:
@@ -56,4 +56,4 @@ class TapTenders Electronic Daily(Tap):
 
 
 if __name__ == "__main__":
-    TapTenders Electronic Daily.cli()
+    TapTendersElectronicDaily.cli()

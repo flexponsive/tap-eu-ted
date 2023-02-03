@@ -1,4 +1,4 @@
-"""REST client handling, including Tenders Electronic DailyStream base class."""
+"""REST client handling, including TendersElectronicDailyStream base class."""
 
 import requests
 from pathlib import Path
@@ -13,8 +13,8 @@ from singer_sdk.streams import RESTStream
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 
-class Tenders Electronic DailyStream(RESTStream):
-    """Tenders Electronic Daily stream class."""
+class TendersElectronicDailyStream(RESTStream):
+    """TendersElectronicDaily stream class."""
 
     # TODO: Set the API's base URL here:
     url_base = "https://api.mysample.com"
