@@ -1,4 +1,4 @@
-# tap-eu-ted
+# tap-eu-ted **WORK IN PROGRESS**
 
 `tap-eu-ted` is a Singer tap for Tenders Electronic Daily.
 
@@ -67,6 +67,14 @@ You can easily run `tap-eu-ted` by itself or in a pipeline using [Meltano](https
 tap-eu-ted --version
 tap-eu-ted --help
 tap-eu-ted --config CONFIG --discover > ./catalog.json
+```
+
+Incremental replication:
+
+```bash
+echo '{"bookmarks": {"documents": {"replication_key": "pubdate", "replication_key_value": "2020-02-01"}}}' > state_test.json
+echo '{ "query": "RC=[DEU]", "scope": 1 }' > tap_config_test.json
+tap-eu-ted --config tap_config_test.json --state state_test.json
 ```
 
 ## Developer Resources
