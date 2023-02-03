@@ -7,56 +7,29 @@ from singer_sdk import typing as th  # JSON Schema typing helpers
 
 from tap_eu_ted.client import TendersElectronicDailyStream
 
-# TODO: Delete this is if not using json files for schema definition
-SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
-# TODO: - Override `UsersStream` and `GroupsStream` with your own stream definition.
-#       - Copy-paste as many times as needed to create multiple stream types.
-
-
-class UsersStream(TendersElectronicDailyStream):
+class DocumentsStream(TendersElectronicDailyStream):
     """Define custom stream."""
-    name = "users"
-    path = "/users"
-    primary_keys = ["id"]
-    replication_key = None
+    name = "documents"
+    path = None
+    primary_keys = ["docid"]
+    replication_method = "INCREMENTAL"
+    replication_key = "pubdate"
     # Optionally, you may also use `schema_filepath` in place of `schema`:
     # schema_filepath = SCHEMAS_DIR / "users.json"
     schema = th.PropertiesList(
-        th.Property("name", th.StringType),
         th.Property(
-            "id",
+            "docid",
             th.StringType,
-            description="The user's system ID"
+            description="TED DocID"
         ),
         th.Property(
-            "age",
-            th.IntegerType,
-            description="The user's age in years"
+            "pubdate",
+            th.DateType,
+            description="Publication Day"
         ),
         th.Property(
-            "email",
+            "xmlbody",
             th.StringType,
-            description="The user's email address"
+            description="XML Body"
         ),
-        th.Property("street", th.StringType),
-        th.Property("city", th.StringType),
-        th.Property(
-            "state",
-            th.StringType,
-            description="State name in ISO 3166-2 format"
-        ),
-        th.Property("zip", th.StringType),
-    ).to_dict()
-
-
-class GroupsStream(TendersElectronicDailyStream):
-    """Define custom stream."""
-    name = "groups"
-    path = "/groups"
-    primary_keys = ["id"]
-    replication_key = "modified"
-    schema = th.PropertiesList(
-        th.Property("name", th.StringType),
-        th.Property("id", th.StringType),
-        th.Property("modified", th.DateTimeType),
     ).to_dict()
