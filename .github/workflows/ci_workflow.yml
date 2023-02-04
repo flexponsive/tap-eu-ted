@@ -1,13 +1,16 @@
-### A CI workflow template that runs linting and python testing
-### TODO: Modify as needed or as desired.
+# linting and basic smoke test for tap-eu-ted
+# runs on each commit
+# additionally once per week to get a notification if the external API caused breakage
 
 name: Test tap-eu-ted
 
-on: [push]
+on:
+  push:
+  schedule:
+    - cron: 0 6 * * 1
 
 jobs:
   linting:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -32,7 +35,6 @@ jobs:
         poetry run tox -e lint
 
   pytest:
-
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
