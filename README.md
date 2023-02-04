@@ -1,42 +1,37 @@
 # tap-eu-ted **WORK IN PROGRESS**
 
-`tap-eu-ted` is a Singer tap for Tenders Electronic Daily.
+`tap-eu-ted` is a Singer tap that reads data about public procurement in the European Union from [Tenders Electronic Daily](https://ted.europa.eu/TED/main/HomePage.do):
 
-Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+> TED (Tenders Electronic Daily) is the online version of the 'Supplement to the Official Journal' of the EU, dedicated to European public procurement.
+> TED publishes 676 thousand procurement notices a year, including 258 thousand calls for tenders which are worth approximately €670 billion.
 
-<!--
+Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps. It retrieves data from TED with the [search-controller-v-3](https://ted.europa.eu/api/swagger-ui.html#/search-controller-v-3/searchPostUsingPOST_2).
 
-Developer TODO: Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
 
 ## Installation
 
-Install from PyPi:
-
-```bash
-pipx install tap-eu-ted
-```
 
 Install from GitHub:
 
 ```bash
-pipx install git+https://github.com/ORG_NAME/tap-eu-ted.git@main
+pipx install git+https://github.com/flexponsive/tap-eu-ted.git@main
 ```
-
--->
 
 ## Configuration
 
 ### Accepted Config Options
 
-<!--
-Developer TODO: Provide a list of config options accepted by the tap.
+It is required to specify a `query` setting to select the documents the tap will retrieve. The query will be processed by the remote API, and are not aware of documentation on the query language. The easiest way to assemble a query is through the TED website:
 
-This section can be created by copy-pasting the CLI output from:
+**Step 1.** Go to [Advanced Search](https://ted.europa.eu/TED/search/search.do) on the TED website, select your query and then click "Switch to expert mode":
 
-```
-tap-eu-ted --about --format=markdown
-```
--->
+![./ted_search_1.png](./ted_search_1.png)
+
+**Step 2.** Paste the expert query to the tap configuration
+
+![./ted_search_2.png](./ted_search_2.png)
+
+By default, the tap sets the `scope` to all documents; this can be changed to e.g. active notices only (setting `scope` to 1).
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -66,20 +61,19 @@ You can easily run `tap-eu-ted` by itself or in a pipeline using [Meltano](https
 ```bash
 tap-eu-ted --version
 tap-eu-ted --help
-tap-eu-ted --config CONFIG --discover > ./catalog.json
-```
 
-Incremental replication:
+# example: replicate all notices from estonia
+echo '{ "query": "RC=[EST]" }' > tap_config_test.json
+tap-eu-ted --config tap_config_test.json
 
-```bash
-echo '{"bookmarks": {"documents": {"replication_key": "pubdate", "replication_key_value": "2020-02-01"}}}' > state_test.json
-echo '{ "query": "RC=[DEU]", "scope": 1 }' > tap_config_test.json
+# example 2: incremental replication after 2022-01-01
+echo '{"bookmarks": {"documents": {"replication_key": "pubdate", "replication_key_value": "2022-01-01"}}}' > state_test.json
 tap-eu-ted --config tap_config_test.json --state state_test.json
 ```
 
 ## Developer Resources
 
-Follow these instructions to contribute to this project.
+
 
 ### Initialize your Development Environment
 

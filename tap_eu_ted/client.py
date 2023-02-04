@@ -58,6 +58,7 @@ class TendersElectronicDailyStream(RESTStream):
             "scope": self.config["scope"],
             "pageNum": 1,
             "pageSize": self.page_size,
+            "sortField": "PD",
         }
         self.logger.info(f"TED POST to {self.get_url(context)} payload: '{payload}")
         return payload
