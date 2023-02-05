@@ -19,6 +19,10 @@ class TendersElectronicDailyStream(RESTStream):
     rest_method = "POST"
     records_jsonpath = "$.results[*]"
 
+    primary_keys = ["docid"]
+    replication_method = "INCREMENTAL"
+    replication_key = "pubdate"
+
     def get_url(self, context: dict | None) -> str:
         """Search API v3.0 URL."""
         return "https://ted.europa.eu/api/v3.0/notices/search"
@@ -57,7 +61,7 @@ class TendersElectronicDailyStream(RESTStream):
         # add starting date to query if incremental import
         if starting_date := self.get_starting_replication_key_value(context):
             ted_formatted_starting_date = starting_date.replace("-", "")
-            query = query + f" PD=[>=  {ted_formatted_starting_date}]"
+            query = query + f" AND PD=[>=  {ted_formatted_starting_date}]"
 
         payload = {
             "q": query,

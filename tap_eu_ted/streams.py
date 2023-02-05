@@ -10,9 +10,7 @@ class DocumentsStream(TendersElectronicDailyStream):
 
     name = "documents"
     path = ""
-    primary_keys = ["docid"]
-    replication_method = "INCREMENTAL"
-    replication_key = "pubdate"
+
     # Optionally, you may also use `schema_filepath` in place of `schema`:
     # schema_filepath = SCHEMAS_DIR / "users.json"
     schema = th.PropertiesList(
