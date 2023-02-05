@@ -29,6 +29,12 @@ class TapTendersElectronicDaily(Tap):
         th.Property(
             "scope", th.IntegerType, default=3, description="document scope (3 = all)"
         ),
+        th.Property(
+            "max_pages",
+            th.IntegerType,
+            default=0,
+            description="stop tap when max pages is reached",
+        ),
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:

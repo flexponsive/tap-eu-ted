@@ -13,6 +13,7 @@ class TendersElectronicDailyStream(RESTStream):
     """TendersElectronicDaily stream class."""
 
     url_base = "/api/v3.0/notices/search"
+    is_sorted = True
     page_size = 100
     current_page = None
     rest_method = "POST"
@@ -28,12 +29,19 @@ class TendersElectronicDailyStream(RESTStream):
         """Calculate the next page number required."""
         total_results = response.json()["total"]
         total_pages = math.ceil(total_results / self.page_size)
+
+        next_page = None
         if self.current_page is None:
-            return 1
+            next_page = 1
         elif self.current_page < total_pages:
-            return self.current_page + 1
-        else:
-            return None
+            next_page = self.current_page + 1
+
+        max_pages = self.config["max_pages"]
+        if max_pages > 0:
+            if next_page >= max_pages:
+                next_page = None
+
+        return next_page
 
     def prepare_request_payload(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -42,7 +50,6 @@ class TendersElectronicDailyStream(RESTStream):
         # pagination
         if next_page_token is None:
             next_page_token = 1
-
         self.current_page = next_page_token
 
         query = self.config["query"]
@@ -56,7 +63,7 @@ class TendersElectronicDailyStream(RESTStream):
             "q": query,
             "fields": ["ND", "PD", "CONTENT"],
             "scope": self.config["scope"],
-            "pageNum": 1,
+            "pageNum": self.current_page,
             "pageSize": self.page_size,
             "sortField": "PD",
         }
