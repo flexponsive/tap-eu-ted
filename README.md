@@ -31,7 +31,7 @@ It is required to specify a `query` setting to select the documents the tap will
 
 ![./ted_search_2.png](./ted_search_2.png)
 
-By default, the tap sets the `scope` to all documents; this can be changed to e.g. active notices only (setting `scope` to 1).
+By default, the tap sets the `scope` to all documents; this can be changed to e.g. active notices only (setting `scope` to 2).
 
 A full list of supported settings and capabilities for this
 tap is available by running:

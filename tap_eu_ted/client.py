@@ -41,7 +41,7 @@ class TendersElectronicDailyStream(RESTStream):
             next_page = self.current_page + 1
 
         max_pages = self.config["max_pages"]
-        if max_pages > 0:
+        if max_pages > 0 and next_page is not None:
             if next_page >= max_pages:
                 next_page = None
 
@@ -70,12 +70,17 @@ class TendersElectronicDailyStream(RESTStream):
             "pageNum": self.current_page,
             "pageSize": self.page_size,
             "sortField": "PD",
+            "reverseOrder": False,  # this means oldest results first
         }
         self.logger.info(f"TED POST to {self.get_url(context)} payload: '{payload}")
         return payload
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse Response."""
+        responseMeta = response.json()
+        responseMeta["current_page_results"] = len(responseMeta["results"])
+        responseMeta.pop("results")
+        self.logger.info(f"TED RESPONSE METADATA: '{responseMeta}")
         yield from extract_jsonpath(self.records_jsonpath, input=response.json())
 
     def post_process(self, row: dict, context: dict | None = None) -> dict | None:
