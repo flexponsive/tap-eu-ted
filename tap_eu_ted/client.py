@@ -59,9 +59,9 @@ class TendersElectronicDailyStream(RESTStream):
         query = self.config["query"]
 
         # add starting date to query if incremental import
-        if starting_date := self.get_starting_replication_key_value(context):
-            ted_formatted_starting_date = starting_date.replace("-", "")
-            query = query + f" AND PD=[>=  {ted_formatted_starting_date}]"
+        if start_date := self.get_starting_replication_key_value(context):
+            ted_formatted_start_date = start_date.replace("-", "")
+            query = query + f" AND PD=[>=  {ted_formatted_start_date}]"
 
         payload = {
             "q": query,

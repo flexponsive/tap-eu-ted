@@ -63,11 +63,11 @@ tap-eu-ted --version
 tap-eu-ted --help
 
 # example: replicate all notices from estonia
-echo '{ "query": "RC=[EST]" }' > tap_config_test.json
+echo '{ "query": "RC=[EST]", "start_date" : "2023-01-01" }' > tap_config_test.json
 tap-eu-ted --config tap_config_test.json
 
-# example 2: incremental replication after 2022-01-01
-echo '{"bookmarks": {"documents": {"replication_key": "pubdate", "replication_key_value": "2022-01-01"}}}' > state_test.json
+# example 2: incremental replication after 2023-02-01
+echo '{"bookmarks": {"documents": {"replication_key": "pubdate", "replication_key_value": "2023-02-01"}}}' > state_test.json
 tap-eu-ted --config tap_config_test.json --state state_test.json
 ```
 

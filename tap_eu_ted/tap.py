@@ -35,6 +35,7 @@ class TapTendersElectronicDaily(Tap):
             default=0,
             description="stop tap when max pages is reached",
         ),
+        th.Property("start_date", th.DateTimeType),
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:
