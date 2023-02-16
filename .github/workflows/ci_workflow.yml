@@ -29,6 +29,7 @@ jobs:
         pip install poetry==1.2.*
     - name: Install dependencies
       run: |
+        poetry lock
         poetry install
     - name: Run lint command from tox.ini
       run: |
@@ -54,6 +55,7 @@ jobs:
         pip install poetry==1.2.*
     - name: Install dependencies
       run: |
+        poetry lock
         poetry install
     - name: Test with pytest
       run: |
