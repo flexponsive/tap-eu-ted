@@ -1,4 +1,7 @@
-# tap-eu-ted **WORK IN PROGRESS**
+[![lint](https://github.com/flexponsive/tap-eu-ted/actions/workflows/lint.yml/badge.svg)](https://github.com/flexponsive/tap-eu-ted/actions/workflows/lint.yml)
+[![test](https://github.com/flexponsive/tap-eu-ted/actions/workflows/test.yml/badge.svg)](https://github.com/flexponsive/tap-eu-ted/actions/workflows/test.yml)
+
+# tap-eu-ted
 
 `tap-eu-ted` is a Singer tap that reads data about public procurement in the European Union from [Tenders Electronic Daily](https://ted.europa.eu/TED/main/HomePage.do):
 
@@ -48,9 +51,7 @@ environment variable is set either in the terminal context or in the `.env` file
 
 ### Source Authentication and Authorization
 
-<!--
-Developer TODO: If your tap requires special access on the source system, or any special authentication requirements, provide those here.
--->
+This open data API does not require authentication.
 
 ## Usage
 
